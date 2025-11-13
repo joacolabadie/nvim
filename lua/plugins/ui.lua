@@ -19,6 +19,7 @@ return {
 						{ "mode" },
 					},
 					lualine_b = {
+						{ "diff", cond = is_buffer },
 						{ "diagnostics", cond = is_buffer },
 					},
 					lualine_c = {
