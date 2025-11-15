@@ -14,7 +14,9 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
-			require("todo-comments").setup()
+			require("todo-comments").setup({
+				signs = false,
+			})
 
 			vim.keymap.set("n", "<leader>tt", "<cmd>TodoTelescope<cr>")
 			vim.keymap.set("n", "]t", function()
