@@ -5,10 +5,10 @@ return {
 	config = function()
 		require("tiny-inline-diagnostic").setup({
 			options = {
-				show_source = {
+				multilines = {
 					enabled = true,
 				},
-				multilines = {
+				show_source = {
 					enabled = true,
 				},
 			},
