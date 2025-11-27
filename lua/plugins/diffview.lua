@@ -4,7 +4,8 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	config = function()
-		vim.keymap.set("n", "<leader>do", ":DiffviewOpen<CR>", { desc = "Open git diff" })
-		vim.keymap.set("n", "<leader>dc", ":DiffviewClose<CR>", { desc = "Close git diff" })
+		vim.keymap.set("n", "<leader>gd", ":DiffviewOpen %<CR>")
+		vim.keymap.set("n", "<leader>gh", ":DiffviewFileHistory %<CR>")
+		vim.keymap.set("n", "<leader>gq", ":DiffviewClose<CR>")
 	end,
 }
