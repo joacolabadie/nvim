@@ -1,3 +1,16 @@
+local mason_lsp_servers = {
+	"lua_ls",
+	"tailwindcss",
+	"ts_ls",
+}
+
+local mason_tools = {
+	"eslint_d",
+	"luacheck",
+	"prettierd",
+	"stylua",
+}
+
 return {
 	{
 		"mason-org/mason.nvim",
@@ -15,7 +28,20 @@ return {
 		},
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "ts_ls", "tailwindcss" },
+				ensure_installed = mason_lsp_servers,
+			})
+		end,
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		dependencies = {
+			{ "mason-org/mason.nvim" },
+		},
+		config = function()
+			require("mason-tool-installer").setup({
+				ensure_installed = mason_tools,
+				run_on_start = true,
+				auto_update = true,
 			})
 		end,
 	},
@@ -46,7 +72,6 @@ return {
 			vim.lsp.enable("tailwindcss")
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover)
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
 		end,
 	},
 }
