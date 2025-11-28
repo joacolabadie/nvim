@@ -1,6 +1,7 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
+vim.opt.signcolumn = "number"
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -20,5 +21,4 @@ vim.opt.scrolloff = 8
 vim.opt.fillchars:append({ vert = " " })
 
 vim.opt.clipboard = "unnamedplus"
-
 vim.opt.mouse = "a"
