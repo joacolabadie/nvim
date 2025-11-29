@@ -1,7 +1,7 @@
 return {
 	"akinsho/bufferline.nvim",
-	event = "VeryLazy",
 	version = "*",
+	event = "VeryLazy",
 	dependencies = {
 		"folke/snacks.nvim",
 	},
