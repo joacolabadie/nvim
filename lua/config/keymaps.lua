@@ -1,6 +1,11 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
@@ -19,10 +24,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
-
-vim.keymap.set("n", "<leader>sv", "<C-w>v")
-vim.keymap.set("n", "<leader>se", "<C-w>=")
-vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { silent = true })
-
-vim.keymap.set("n", "<M-l>", "<Cmd>vertical resize -2<CR>")
-vim.keymap.set("n", "<M-h>", "<Cmd>vertical resize +2<CR>")
