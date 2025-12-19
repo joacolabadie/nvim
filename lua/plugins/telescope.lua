@@ -13,6 +13,11 @@ return {
 			defaults = {
 				file_ignore_patterns = { "node_modules" },
 			},
+			pickers = {
+				find_files = {
+					hidden = true,
+				},
+			},
 		})
 
 		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
