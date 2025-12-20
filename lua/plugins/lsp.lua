@@ -66,6 +66,14 @@ return {
 
 			vim.lsp.config("ts_ls", {
 				capabilities = capabilities,
+				settings = {
+					typescript = {
+						format = { tabSize = 2, indentSize = 2, convertTabsToSpaces = true },
+					},
+					javascript = {
+						format = { tabSize = 2, indentSize = 2, convertTabsToSpaces = true },
+					},
+				},
 				on_attach = function(client, bufnr)
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						buffer = bufnr,
