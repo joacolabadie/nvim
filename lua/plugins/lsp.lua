@@ -50,9 +50,11 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			local group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true })
+			local lsp_group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true })
+			local ts_group = vim.api.nvim_create_augroup("TsLsOrganizeImports", { clear = true })
+
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = group,
+				group = lsp_group,
 				callback = function(ev)
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "LSP Hover" })
 					vim.keymap.set(
@@ -80,7 +82,43 @@ return {
 
 			vim.lsp.config("tailwindcss", { capabilities = capabilities })
 
-			vim.lsp.config("ts_ls", { capabilities = capabilities })
+			vim.lsp.config("ts_ls", {
+				capabilities = capabilities,
+				settings = {
+					typescript = {
+						format = {
+							tabSize = 2,
+							indentSize = 2,
+							convertTabsToSpaces = true,
+						},
+					},
+					javascript = {
+						format = {
+							tabSize = 2,
+							indentSize = 2,
+							convertTabsToSpaces = true,
+						},
+					},
+				},
+				on_attach = function(client, bufnr)
+					vim.api.nvim_clear_autocmds({
+						group = ts_group,
+						buffer = bufnr,
+					})
+
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						group = ts_group,
+						buffer = bufnr,
+						callback = function()
+							client:exec_cmd({
+								title = "Organize Imports",
+								command = "_typescript.organizeImports",
+								arguments = { vim.api.nvim_buf_get_name(bufnr) },
+							}, { bufnr = bufnr })
+						end,
+					})
+				end,
+			})
 		end,
 	},
 }
