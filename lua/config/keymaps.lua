@@ -13,7 +13,10 @@ vim.keymap.set("n", "x", '"_x')
 
 vim.keymap.set("n", "<C-c>", ":noh<CR>", { silent = true })
 
+local yank_group = vim.api.nvim_create_augroup("UserHighlightOnYank", { clear = true })
+
 vim.api.nvim_create_autocmd("TextYankPost", {
+	group = yank_group,
 	callback = function()
 		vim.highlight.on_yank()
 	end,

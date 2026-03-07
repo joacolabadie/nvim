@@ -20,9 +20,10 @@ return {
 			"vim",
 		}, lint.linters.luacheck.args or {})
 
-		local group = vim.api.nvim_create_augroup("UserNvimLint", { clear = true })
+		local lint_group = vim.api.nvim_create_augroup("UserNvimLint", { clear = true })
+
 		vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
-			group = group,
+			group = lint_group,
 			callback = function()
 				lint.try_lint()
 			end,

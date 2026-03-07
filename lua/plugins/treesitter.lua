@@ -30,9 +30,10 @@ return {
 				"typescriptreact",
 			}
 
-			local group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true })
+			local treesitter_group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true })
+
 			vim.api.nvim_create_autocmd("FileType", {
-				group = group,
+				group = treesitter_group,
 				pattern = filetypes,
 				callback = function()
 					vim.treesitter.start()

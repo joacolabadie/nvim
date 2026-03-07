@@ -51,7 +51,7 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			local lsp_group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true })
-			local ts_group = vim.api.nvim_create_augroup("TsLsOrganizeImports", { clear = true })
+			local ts_ls_group = vim.api.nvim_create_augroup("UserTsLsOrganizeImports", { clear = true })
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = lsp_group,
@@ -102,12 +102,12 @@ return {
 				},
 				on_attach = function(client, bufnr)
 					vim.api.nvim_clear_autocmds({
-						group = ts_group,
+						group = ts_ls_group,
 						buffer = bufnr,
 					})
 
 					vim.api.nvim_create_autocmd("BufWritePre", {
-						group = ts_group,
+						group = ts_ls_group,
 						buffer = bufnr,
 						callback = function()
 							client:exec_cmd({
