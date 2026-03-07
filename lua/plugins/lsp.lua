@@ -15,88 +15,72 @@ local mason_tools = {
 return {
 	{
 		"mason-org/mason.nvim",
-		build = ":MasonUpdate",
-		config = function()
-			require("mason").setup()
-		end,
+		opts = {},
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
-		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			{ "mason-org/mason.nvim" },
+			"mason-org/mason.nvim",
 			"neovim/nvim-lspconfig",
 		},
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = mason_lsp_servers,
-			})
-		end,
+		opts = {
+			ensure_installed = mason_lsp_servers,
+		},
 	},
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		dependencies = {
-			{ "mason-org/mason.nvim" },
+			"mason-org/mason.nvim",
 		},
-		config = function()
-			require("mason-tool-installer").setup({
-				ensure_installed = mason_tools,
-				run_on_start = true,
-				auto_update = true,
-			})
-		end,
+		opts = {
+			ensure_installed = mason_tools,
+			auto_update = true,
+			run_on_start = true,
+		},
 	},
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
+		event = {
+			"BufReadPre",
+			"BufNewFile",
+		},
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			vim.lsp.config("gopls", {
-				capabilities = capabilities,
-			})
-
-			vim.lsp.config("lua_ls", {
-				capabilities = capabilities,
-				settings = { Lua = { diagnostics = { globals = { "vim", "Snacks" } } } },
-			})
-
-			vim.lsp.config("ts_ls", {
-				capabilities = capabilities,
-				settings = {
-					typescript = {
-						format = { tabSize = 2, indentSize = 2, convertTabsToSpaces = true },
-					},
-					javascript = {
-						format = { tabSize = 2, indentSize = 2, convertTabsToSpaces = true },
-					},
-				},
-				on_attach = function(client, bufnr)
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						buffer = bufnr,
-						callback = function()
-							client.request("workspace/executeCommand", {
-								command = "_typescript.organizeImports",
-								arguments = { vim.api.nvim_buf_get_name(bufnr) },
-							}, nil, bufnr)
-						end,
-					})
+			local group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true })
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = group,
+				callback = function(ev)
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "LSP Hover" })
+					vim.keymap.set(
+						"n",
+						"gd",
+						vim.lsp.buf.definition,
+						{ buffer = ev.buf, desc = "LSP Go to definition" }
+					)
+					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = ev.buf, desc = "LSP Rename" })
 				end,
 			})
 
-			vim.lsp.config("tailwindcss", {
+			vim.lsp.config("gopls", { capabilities = capabilities })
+
+			vim.lsp.config("lua_ls", {
 				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
 			})
 
-			vim.lsp.enable("gopls")
-			vim.lsp.enable("lua_ls")
-			vim.lsp.enable("ts_ls")
-			vim.lsp.enable("tailwindcss")
+			vim.lsp.config("tailwindcss", { capabilities = capabilities })
 
-			vim.keymap.set("n", "K", vim.lsp.buf.hover)
+			vim.lsp.config("ts_ls", { capabilities = capabilities })
 		end,
 	},
 }
