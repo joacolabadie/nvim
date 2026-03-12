@@ -29,6 +29,9 @@ return {
 			"BufReadPre",
 			"BufNewFile",
 		},
+		keys = {
+			{ "<leader>hi", "<cmd>Gitsigns preview_hunk_inline<cr>", desc = "Preview hunk inline" },
+		},
 		opts = {
 			signs = {
 				add = { text = "+" },
