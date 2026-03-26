@@ -8,6 +8,9 @@ return {
 		local lint = require("lint")
 
 		lint.linters_by_ft = {
+			c = { "cpplint" },
+			cpp = { "cpplint" },
+			haskell = { "hlint" },
 			javascript = { "eslint_d" },
 			javascriptreact = { "eslint_d" },
 			lua = { "luacheck" },

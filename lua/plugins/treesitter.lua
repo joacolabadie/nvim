@@ -7,7 +7,10 @@ return {
 			local ts = require("nvim-treesitter")
 
 			local parsers = {
+				"c",
+				"cpp",
 				"css",
+				"haskell",
 				"html",
 				"javascript",
 				"json",
@@ -19,7 +22,10 @@ return {
 			ts.install(parsers)
 
 			local filetypes = {
+				"c",
+				"cpp",
 				"css",
+				"haskell",
 				"html",
 				"javascript",
 				"javascriptreact",
