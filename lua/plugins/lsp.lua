@@ -94,22 +94,6 @@ return {
 
 			vim.lsp.config("ts_ls", {
 				capabilities = capabilities,
-				settings = {
-					typescript = {
-						format = {
-							tabSize = 2,
-							indentSize = 2,
-							convertTabsToSpaces = true,
-						},
-					},
-					javascript = {
-						format = {
-							tabSize = 2,
-							indentSize = 2,
-							convertTabsToSpaces = true,
-						},
-					},
-				},
 				on_attach = function(client, bufnr)
 					vim.api.nvim_clear_autocmds({
 						group = ts_ls_group,
@@ -121,7 +105,6 @@ return {
 						buffer = bufnr,
 						callback = function()
 							client:exec_cmd({
-								title = "Organize Imports",
 								command = "_typescript.organizeImports",
 								arguments = { vim.api.nvim_buf_get_name(bufnr) },
 							}, { bufnr = bufnr })
