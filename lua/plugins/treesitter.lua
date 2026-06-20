@@ -7,33 +7,31 @@ return {
 			local ts = require("nvim-treesitter")
 
 			local parsers = {
-				"c",
-				"cpp",
 				"css",
-				"haskell",
 				"html",
 				"javascript",
 				"json",
+				"jsonc",
 				"lua",
 				"markdown",
 				"tsx",
 				"typescript",
+				"xml",
 			}
 			ts.install(parsers)
 
 			local filetypes = {
-				"c",
-				"cpp",
 				"css",
-				"haskell",
 				"html",
 				"javascript",
 				"javascriptreact",
 				"json",
+				"jsonc",
 				"lua",
 				"markdown",
 				"typescript",
 				"typescriptreact",
+				"xml",
 			}
 
 			local treesitter_group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true })

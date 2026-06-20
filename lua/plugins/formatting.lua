@@ -3,17 +3,16 @@ return {
 	event = "BufWritePre",
 	opts = {
 		formatters_by_ft = {
-			c = { "clang_format" },
-			cpp = { "clang_format" },
 			css = { "prettierd" },
-			haskell = { "fourmolu" },
 			html = { "prettierd" },
 			javascript = { "prettierd" },
 			javascriptreact = { "prettierd" },
 			json = { "prettierd" },
+			jsonc = { "prettierd" },
 			lua = { "stylua" },
 			typescript = { "prettierd" },
 			typescriptreact = { "prettierd" },
+			xml = { "xmllint" },
 		},
 		format_on_save = {
 			lsp_format = "fallback",

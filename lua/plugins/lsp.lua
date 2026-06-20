@@ -1,18 +1,12 @@
 local mason_lsp_servers = {
-	"clangd",
 	"gopls",
-	"hls",
 	"lua_ls",
 	"tailwindcss",
 	"ts_ls",
 }
 
 local mason_tools = {
-	"clang-format",
-	"cpplint",
 	"eslint_d",
-	"fourmolu",
-	"hlint",
 	"luacheck",
 	"prettierd",
 	"stylua",
@@ -73,11 +67,7 @@ return {
 				end,
 			})
 
-			vim.lsp.config("clangd", { capabilities = capabilities })
-
 			vim.lsp.config("gopls", { capabilities = capabilities })
-
-			vim.lsp.config("hls", { capabilities = capabilities })
 
 			vim.lsp.config("lua_ls", {
 				capabilities = capabilities,
@@ -94,6 +84,22 @@ return {
 
 			vim.lsp.config("ts_ls", {
 				capabilities = capabilities,
+				settings = {
+					typescript = {
+						format = {
+							tabSize = 2,
+							indentSize = 2,
+							convertTabsToSpaces = true,
+						},
+					},
+					javascript = {
+						format = {
+							tabSize = 2,
+							indentSize = 2,
+							convertTabsToSpaces = true,
+						},
+					},
+				},
 				on_attach = function(client, bufnr)
 					vim.api.nvim_clear_autocmds({
 						group = ts_ls_group,
